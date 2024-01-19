@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1096181483743",
+    "project_id": "chitramanjari9",
+    "storage_bucket": "chitramanjari9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1096181483743:android:4e15854dfb88be6fc7c16a",
+        "android_client_info": {
+          "package_name": "com.comiccoder.chitramanjari"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAN3G2WaZeToH7hF6g1q75ACIUMZp4Pik"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

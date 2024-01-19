@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Chitramanjari</string>
+    <string name="company_name">The Comic Coder</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_search">Search</string>
+    <string name="title_add">Add</string>
+    <string name="title_reels">Reels</string>
+    <string name="title_profile">Profile</string>
+    <string name="add_reel">Add Reel</string>
+    <string name="add_post">Add Post</string>
+    <string name="shareToPost">Share to Post</string>
+    <string name="message_while_posting">Your post may appear in other user\'s feed and can be seen on posts tab of your profile.</string>
+    <string name="write_a_caption">Write a Caption</string>
+    <string name="share_reel">Share Reel</string>
+    <string name="select_reel">Select Reel</string>
+</resources>
