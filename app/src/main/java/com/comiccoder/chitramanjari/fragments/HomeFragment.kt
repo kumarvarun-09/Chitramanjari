@@ -9,12 +9,22 @@ import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.comiccoder.chitramanjari.R
+import com.comiccoder.chitramanjari.adapters.AllPostsAdapter
+import com.comiccoder.chitramanjari.adapters.MyPostRvAdapter
+import com.comiccoder.chitramanjari.dataModels.AllPostModel
+import com.comiccoder.chitramanjari.dataModels.Post
+import com.comiccoder.chitramanjari.database.getAllPosts
 import com.comiccoder.chitramanjari.databinding.FragmentHomeBinding
+import com.comiccoder.chitramanjari.databinding.FragmentMyPostsBinding
 
 
 class HomeFragment : Fragment() {
     val binding by lazy { FragmentHomeBinding.inflate(layoutInflater) }
+    private lateinit var postsList: ArrayList<AllPostModel>
+    private lateinit var adapter: AllPostsAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -28,6 +38,15 @@ class HomeFragment : Fragment() {
 //         Inflate the layout for this fragment
         (requireActivity() as AppCompatActivity).setSupportActionBar(binding.materialToolbar)
         setHasOptionsMenu(true)
+
+        getAllPosts {
+            postsList = it!!
+            postsList.reverse()
+            adapter = AllPostsAdapter(requireContext(), postsList)
+            binding.allPostsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+            binding.allPostsRecyclerView.adapter = adapter
+            adapter.notifyDataSetChanged()
+        }
         return binding.root
     }
 

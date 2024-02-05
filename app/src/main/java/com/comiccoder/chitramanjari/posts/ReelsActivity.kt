@@ -11,6 +11,7 @@ import com.comiccoder.chitramanjari.database.addVideoPost
 import com.comiccoder.chitramanjari.database.uploadDocument
 import com.comiccoder.chitramanjari.databinding.ActivityReelsBinding
 import com.comiccoder.chitramanjari.utils.getCurrentTime
+import com.comiccoder.chitramanjari.utils.getTimeStamp
 import com.google.android.material.snackbar.Snackbar
 
 class ReelsActivity : AppCompatActivity() {
@@ -52,7 +53,7 @@ class ReelsActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             videoPost.caption = binding.captionTV.editText!!.text.toString().trim()
-            videoPost.postTime = getCurrentTime()
+            videoPost.postTime = getTimeStamp()
 
             addVideoPost(videoPost) {
                 Snackbar.make(

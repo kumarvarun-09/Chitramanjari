@@ -11,6 +11,7 @@ import com.comiccoder.chitramanjari.dataModels.VideoPost
 import com.comiccoder.chitramanjari.database.addPost
 import com.comiccoder.chitramanjari.database.uploadDocument
 import com.comiccoder.chitramanjari.utils.getCurrentTime
+import com.comiccoder.chitramanjari.utils.getTimeStamp
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 
@@ -59,7 +60,7 @@ class PostsActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             post.caption = binding.captionTV.editText!!.text.toString().trim()
-            post.postTime = getCurrentTime()
+            post.postTime = getTimeStamp()
 
             addPost(post) {
                 Snackbar.make(

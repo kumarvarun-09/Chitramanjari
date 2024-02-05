@@ -79,4 +79,7 @@ dependencies {
 
     // Glide dependency
     implementation ("com.github.bumptech.glide:glide:4.16.0")
+
+    // TimeAgo dependency
+    implementation("com.github.marlonlom:timeago:4.0.3")
 }

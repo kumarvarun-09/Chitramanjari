@@ -11,6 +11,10 @@ fun getCurrentTime(): String {
     val sdf = SimpleDateFormat("'Date\n'dd-MM-yyyy '\n\nand\n\nTime\n'HH:mm:ss z")
     return sdf.format(Date())
 }
+fun getTimeStamp():Long
+{
+    return Calendar.getInstance(Locale.ENGLISH).timeInMillis
+}
 fun getDateTimeFromTimeStamp(timeStamp:Int): String
 {
     val cal = Calendar.getInstance(Locale.ENGLISH)

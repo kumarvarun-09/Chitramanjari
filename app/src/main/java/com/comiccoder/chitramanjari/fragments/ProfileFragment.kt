@@ -45,7 +45,7 @@ class ProfileFragment : Fragment() {
         super.onStart()
         getCurrentUserData {
             binding.name.text = it!!.name
-            binding.bio.text = it.email
+            binding.email.text = it.email
             if (!it.image.isNullOrEmpty()) {
                 Picasso.get().load(it.image).into(binding.circleImageView)
             }
