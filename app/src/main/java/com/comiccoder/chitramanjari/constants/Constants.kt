@@ -10,3 +10,5 @@ const val POST = "Post"                // User for storage of link of post
 const val REEL = "Reel"                // User for storage of link of reel
 const val ALL_POSTS = "All_Posts"      // User for storing of post for showing in public
 const val ALL_REELS = "All_Reels"      // User for storing of post for showing in public
+const val USER_IDS_NODE = "User_Ids_Node" // Storing Ids separately for fast access
+const val USER_POSTS_AND_REELS = "User_Posts_And_Reels"
