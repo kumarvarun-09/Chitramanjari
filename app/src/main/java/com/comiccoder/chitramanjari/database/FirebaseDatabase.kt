@@ -4,15 +4,16 @@ import android.app.ProgressDialog
 import android.net.Uri
 import android.util.Log
 import com.comiccoder.chitramanjari.constants.ALL_POSTS
+import com.comiccoder.chitramanjari.constants.ALL_REELS
 import com.comiccoder.chitramanjari.constants.POST
 import com.comiccoder.chitramanjari.constants.REEL
 import com.comiccoder.chitramanjari.dataModels.User
 import com.comiccoder.chitramanjari.constants.SUCCESS
-import com.comiccoder.chitramanjari.constants.USER_DETAILS
-import com.comiccoder.chitramanjari.constants.USER_IDS_NODE
+import com.comiccoder.chitramanjari.constants.USER_FOLLOWS
 import com.comiccoder.chitramanjari.constants.USER_NODE
 import com.comiccoder.chitramanjari.constants.USER_POSTS_AND_REELS
 import com.comiccoder.chitramanjari.dataModels.AllPostModel
+import com.comiccoder.chitramanjari.dataModels.AllReelsModel
 import com.comiccoder.chitramanjari.dataModels.Post
 import com.comiccoder.chitramanjari.dataModels.VideoPost
 import com.google.firebase.auth.FirebaseAuth
@@ -28,8 +29,9 @@ fun registerUser(user: User, password: String, callback: (String?) -> Unit) {
         .createUserWithEmailAndPassword(user.email!!, password)
         .addOnCompleteListener { result ->
             if (result.isSuccessful) {
+                user.id = getCurrentUser()!!.uid
                 Firebase.firestore.collection(USER_NODE)
-                    .document(getCurrentUser()!!.uid)
+                    .document(user.id!!)
                     .set(user)
                     .addOnSuccessListener {
                         callback(SUCCESS)
@@ -82,6 +84,17 @@ fun getPostDataWithUIdAndPostId(uid: String, postId: String, callback: (Post?) -
         }
 }
 
+fun getReelDataWithUidAndReelId(uid: String, reelId: String, callback: (VideoPost?) -> Unit) {
+    Firebase.firestore.collection(USER_POSTS_AND_REELS)
+        .document(uid)
+        .collection(REEL)
+        .document(reelId)
+        .get()
+        .addOnSuccessListener {
+            callback(it.toObject<VideoPost>())
+        }
+}
+
 fun addPost(post: Post, callback: (String?) -> Unit) {
     Firebase.firestore.collection(USER_POSTS_AND_REELS)
         .document(getCurrentUser()!!.uid)
@@ -89,7 +102,7 @@ fun addPost(post: Post, callback: (String?) -> Unit) {
         .document(post.postTime!!.toString()).set(post)
         .addOnSuccessListener {
             Firebase.firestore.collection(ALL_POSTS)
-                .document(getCurrentUser()!!.uid + post.postTime!!)
+                .document(post.postTime!!.toString() + getCurrentUser()!!.uid)
                 .set(AllPostModel(getCurrentUser()!!.uid, post.postTime!!.toString()))
                 .addOnSuccessListener {
                     callback(SUCCESS)
@@ -103,7 +116,12 @@ fun addVideoPost(videoPost: VideoPost, callback: (String?) -> Unit) {
         .collection(REEL)
         .document(videoPost.postTime!!.toString()).set(videoPost)
         .addOnSuccessListener {
-            callback(SUCCESS)
+            Firebase.firestore.collection(ALL_REELS)
+                .document(videoPost.postTime!!.toString() + getCurrentUser()!!.uid)
+                .set(AllReelsModel(getCurrentUser()!!.uid, videoPost.postTime!!.toString()))
+                .addOnSuccessListener {
+                    callback(SUCCESS)
+                }
         }
 }
 
@@ -115,7 +133,7 @@ fun getAllUsersData(searchText: String, callback: (ArrayList<User>) -> Unit) {
                 if (i.id != getCurrentUser()!!.uid) {
                     val user = i.toObject<User>()
                     val name = user!!.name!!.lowercase()
-                    val email = user!!.email!!.lowercase()
+                    val email = user.email!!.lowercase()
                     if (name.contains(searchText) || email.contains(searchText)) {
                         searchUserList.add(user)
                     }
@@ -162,6 +180,18 @@ fun getMyPosts(callback: (ArrayList<Post>?) -> Unit) {
         }
 }
 
+fun getMyReels(callback: (ArrayList<VideoPost>?) -> Unit) {
+    val videoPostList = ArrayList<VideoPost>()
+    Firebase.firestore.collection(USER_POSTS_AND_REELS).document(getCurrentUser()!!.uid)
+        .collection(REEL).get()
+        .addOnSuccessListener {
+            for (i in it.documents) {
+                videoPostList.add(i.toObject<VideoPost>()!!)
+            }
+            callback(videoPostList)
+        }
+}
+
 fun getAllPosts(callback: (ArrayList<AllPostModel>?) -> Unit) {
     val allPostList = ArrayList<AllPostModel>()
     Firebase.firestore.collection(ALL_POSTS).get()
@@ -173,13 +203,66 @@ fun getAllPosts(callback: (ArrayList<AllPostModel>?) -> Unit) {
         }
 }
 
-fun getMyReels(callback: (ArrayList<VideoPost>?) -> Unit) {
-    val videoPostList = ArrayList<VideoPost>()
-    Firebase.firestore.collection(USER_NODE).document(getCurrentUser()!!.uid).collection(REEL).get()
+
+fun getAllReels(callback: (ArrayList<AllReelsModel>?) -> Unit) {
+    val allReelsList = ArrayList<AllReelsModel>()
+    Firebase.firestore.collection(ALL_REELS).get()
         .addOnSuccessListener {
             for (i in it.documents) {
-                videoPostList.add(i.toObject<VideoPost>()!!)
+                allReelsList.add(i.toObject<AllReelsModel>()!!)
             }
-            callback(videoPostList)
+            callback(allReelsList)
+        }
+}
+
+fun followUserWithId(id: String, callback: (String) -> Unit) {
+    Firebase.firestore.collection(USER_FOLLOWS)
+        .document(getCurrentUser()!!.uid)
+        .collection(USER_FOLLOWS)
+        .document(id).set({null})
+        .addOnSuccessListener {
+            callback(SUCCESS)
+        }
+}
+
+fun unFollowUserWithId(id: String, callback: (String) -> Unit) {
+    Firebase.firestore.collection(USER_FOLLOWS)
+        .document(getCurrentUser()!!.uid)
+        .collection(USER_FOLLOWS)
+        .document(id).delete()
+        .addOnSuccessListener {
+            callback(SUCCESS)
+        }
+}
+
+fun iFollowUserOrNot(id: String, callback: (Boolean) -> Unit) {
+    Firebase.firestore.collection(USER_FOLLOWS)
+        .document(getCurrentUser()!!.uid)
+        .collection(USER_FOLLOWS)
+        .document(id)
+        .get()
+        .addOnSuccessListener {
+            if(it != null)
+            {
+                Log.d("it callback", it.id)
+                callback(true)
+            }
+            else
+                callback(false)
+        }
+}
+fun getIFollow(callback: (ArrayList<String>?) -> Unit)
+{
+    val iFollowList = ArrayList<String>()
+    Firebase.firestore.collection(USER_FOLLOWS)
+        .document(getCurrentUser()!!.uid)
+        .collection(USER_FOLLOWS)
+        .get()
+        .addOnSuccessListener {
+            for(i in it.documents)
+            {
+                iFollowList.add(i.id)
+            }
+            callback(iFollowList)
         }
 }

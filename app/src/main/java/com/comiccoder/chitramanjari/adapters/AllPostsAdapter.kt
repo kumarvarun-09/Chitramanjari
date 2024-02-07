@@ -13,7 +13,6 @@ import com.comiccoder.chitramanjari.database.getPostDataWithUIdAndPostId
 import com.comiccoder.chitramanjari.database.getUserDataWithId
 import com.comiccoder.chitramanjari.databinding.PostRvItemBinding
 import com.github.marlonlom.utilities.timeago.TimeAgo
-import com.squareup.picasso.Picasso
 
 class AllPostsAdapter(var context: Context, var postList: ArrayList<AllPostModel>) :
     RecyclerView.Adapter<AllPostsAdapter.ViewHolder>() {
@@ -35,7 +34,6 @@ class AllPostsAdapter(var context: Context, var postList: ArrayList<AllPostModel
         var postData: Post? = null
         getUserDataWithId(postVar.userId!!) { it ->
             if (it!!.image != null) {
-//                Picasso.get().load(it.image).into(holder.binding.circleImageView)
                 Glide.with(context).load(it.image).into(holder.binding.circleImageView)
             }
             holder.binding.name.text = it.name
@@ -43,7 +41,6 @@ class AllPostsAdapter(var context: Context, var postList: ArrayList<AllPostModel
         getPostDataWithUIdAndPostId(postVar.userId!!, postVar.postId!!) { it ->
             postData = it
             holder.binding.time.text = TimeAgo.using(it!!.postTime!!)
-//            Picasso.get().load(it.postUrl).into(holder.binding.postImage)
             Glide.with(context).load(it.postUrl).into(holder.binding.postImage)
             holder.binding.postCaption.text = it.caption
         }

@@ -35,8 +35,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="20dp"
         android:hint="@string/write_a_caption"
-        app:boxStrokeColor="@color/light_blue"
-        app:hintTextColor="@color/light_blue"
+        app:boxStrokeColor="@color/logoColor"
+        app:hintTextColor="@color/logoColor"
         >
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -94,7 +94,7 @@
             android:backgroundTint="@color/white"
             android:textColor="@color/black"
             style="@style/Widget.Material3.Button.OutlinedButton"
-            app:strokeColor="@color/light_blue"
+            app:strokeColor="@color/logoColor"
             android:text="Cancel"
             />
         <Button
@@ -103,7 +103,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="@color/light_blue"
+            android:backgroundTint="@color/logoColor"
             android:text="Post"
             />
     </LinearLayout>

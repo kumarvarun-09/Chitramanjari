@@ -2,7 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="logoColor">#e0262c</color>
+    <color name="logoColor">#E80F59</color>
     <color name="grey">#676666</color>
     <color name="snackbar_error_color">#F60505</color>
     <color name="light_blue">#1898FD</color>

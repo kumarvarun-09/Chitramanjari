@@ -10,13 +10,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.comiccoder.chitramanjari.adapters.SearchAdapter
 import com.comiccoder.chitramanjari.dataModels.User
 import com.comiccoder.chitramanjari.database.getAllUsersData
+import com.comiccoder.chitramanjari.database.getIFollow
 import com.comiccoder.chitramanjari.database.getUserDataWithId
 import com.comiccoder.chitramanjari.databinding.FragmentSearchBinding
 
 class SearchFragment : Fragment() {
     val binding by lazy { FragmentSearchBinding.inflate(layoutInflater) }
     lateinit var adapter: SearchAdapter
-    private val searchUserList by lazy { ArrayList<User>() }
+    private var iFollowList: ArrayList<String>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -26,14 +27,19 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding.searchEDT.setOnEditorActionListener { textView, i, keyEvent ->
+        binding.searchEDT.setOnEditorActionListener { textView, _, _ ->
             val searchText = textView.text.toString().trim().lowercase()
-            getAllUsersData(searchText) {
-                adapter = SearchAdapter(requireContext(), it)
-                binding.searchUserRecyclerView.layoutManager =
-                    LinearLayoutManager(requireContext())
-                binding.searchUserRecyclerView.adapter = adapter
-                adapter.notifyDataSetChanged()
+            if (searchText.isNotEmpty()) {
+                getIFollow { followList ->
+                    iFollowList = followList!!
+                    getAllUsersData(searchText) {
+                        adapter = SearchAdapter(requireContext(), it, iFollowList!!)
+                        binding.searchUserRecyclerView.layoutManager =
+                            LinearLayoutManager(requireContext())
+                        binding.searchUserRecyclerView.adapter = adapter
+                        adapter.notifyDataSetChanged()
+                    }
+                }
             }
             true
         }
