@@ -5,10 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.comiccoder.chitramanjari.R
-import com.comiccoder.chitramanjari.adapters.ReelViewAdapter
-import com.comiccoder.chitramanjari.dataModels.VideoPost
-import com.comiccoder.chitramanjari.database.getMyReels
+import com.comiccoder.chitramanjari.adapters.AllReelsAdapter
+import com.comiccoder.chitramanjari.dataModels.AllReelsModel
+import com.comiccoder.chitramanjari.database.getAllReels
 import com.comiccoder.chitramanjari.databinding.FragmentReelBinding
 
 class ReelFragment : Fragment() {
@@ -16,8 +15,8 @@ class ReelFragment : Fragment() {
     private val binding by lazy {
         FragmentReelBinding.inflate(layoutInflater)
     }
-    private lateinit var reelAdapter: ReelViewAdapter
-    private var reelList = ArrayList<VideoPost>()
+    private lateinit var reelAdapter: AllReelsAdapter
+    private var reelList = ArrayList<AllReelsModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,9 +29,10 @@ class ReelFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        getMyReels {
+        getAllReels {
             reelList = it!!
-            reelAdapter = ReelViewAdapter(requireContext(), reelList)
+            reelList.reverse()
+            reelAdapter = AllReelsAdapter(requireContext(), reelList)
             binding.reelViewPager.adapter = reelAdapter
         }
 

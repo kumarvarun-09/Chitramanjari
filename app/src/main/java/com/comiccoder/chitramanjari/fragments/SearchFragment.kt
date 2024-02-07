@@ -28,12 +28,14 @@ class SearchFragment : Fragment() {
         // Inflate the layout for this fragment
         binding.searchEDT.setOnEditorActionListener { textView, i, keyEvent ->
             val searchText = textView.text.toString().trim().lowercase()
-            getAllUsersData(searchText) {
-                adapter = SearchAdapter(requireContext(), it)
-                binding.searchUserRecyclerView.layoutManager =
-                    LinearLayoutManager(requireContext())
-                binding.searchUserRecyclerView.adapter = adapter
-                adapter.notifyDataSetChanged()
+            if (searchText.isNotEmpty()) {
+                getAllUsersData(searchText) {
+                    adapter = SearchAdapter(requireContext(), it)
+                    binding.searchUserRecyclerView.layoutManager =
+                        LinearLayoutManager(requireContext())
+                    binding.searchUserRecyclerView.adapter = adapter
+                    adapter.notifyDataSetChanged()
+                }
             }
             true
         }

@@ -1,6 +1,5 @@
 package com.comiccoder.chitramanjari.fragments
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,15 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.comiccoder.chitramanjari.R
 import com.comiccoder.chitramanjari.adapters.AllPostsAdapter
-import com.comiccoder.chitramanjari.adapters.MyPostRvAdapter
 import com.comiccoder.chitramanjari.dataModels.AllPostModel
-import com.comiccoder.chitramanjari.dataModels.Post
 import com.comiccoder.chitramanjari.database.getAllPosts
 import com.comiccoder.chitramanjari.databinding.FragmentHomeBinding
-import com.comiccoder.chitramanjari.databinding.FragmentMyPostsBinding
 
 
 class HomeFragment : Fragment() {
