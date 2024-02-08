@@ -24,9 +24,9 @@
         android:name="com.comiccoder.chitramanjari.fragments.ReelFragment"
         android:label="fragment_reel"
         tools:layout="@layout/fragment_reel" />
-    <fragment
+    <activity
         android:id="@+id/profile"
-        android:name="com.comiccoder.chitramanjari.fragments.ProfileFragment"
+        android:name="com.comiccoder.chitramanjari.activities.MyProfile"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

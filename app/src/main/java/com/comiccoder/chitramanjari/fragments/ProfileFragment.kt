@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.comiccoder.chitramanjari.R
 import com.comiccoder.chitramanjari.adapters.ViewPagerAdapter
+import com.comiccoder.chitramanjari.constants.MY_POSTS_FRAGMENT_TITLE
+import com.comiccoder.chitramanjari.constants.MY_REELS_FRAGMENT_TITLE
 import com.comiccoder.chitramanjari.dataModels.User
 import com.comiccoder.chitramanjari.databinding.FragmentProfileBinding
 import com.comiccoder.chitramanjari.database.getCurrentUser
@@ -30,8 +32,8 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
 
         viewPagerAdapter = ViewPagerAdapter(requireActivity().supportFragmentManager)
-        viewPagerAdapter.addFragment(MyPostsFragment(), "My Posts")
-        viewPagerAdapter.addFragment(MyReelsFragment(), "My Reels")
+        viewPagerAdapter.addFragment(MyPostsFragment(), MY_POSTS_FRAGMENT_TITLE)
+        viewPagerAdapter.addFragment(MyReelsFragment(), MY_REELS_FRAGMENT_TITLE)
         binding.viewPager.adapter = viewPagerAdapter
         binding.tabLayout.setupWithViewPager(binding.viewPager)
 
@@ -50,6 +52,5 @@ class ProfileFragment : Fragment() {
                 Picasso.get().load(it.image).into(binding.circleImageView)
             }
         }
-
     }
 }

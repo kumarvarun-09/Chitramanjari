@@ -22,13 +22,16 @@
 
         <TextView
             android:id="@+id/name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:maxLines="1"
             android:text="Name"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/email"
+            app:layout_constraintEnd_toStartOf="@id/btnFollow"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/circleImageView"
             app:layout_constraintTop_toTopOf="@+id/circleImageView"
             app:layout_constraintVertical_chainStyle="packed" />
@@ -38,6 +41,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:maxLines="1"
             android:text="E-mail"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/circleImageView"

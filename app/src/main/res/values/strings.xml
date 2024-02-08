@@ -20,5 +20,6 @@
     <string name="select_reel">Select Reel</string>
     <string name="follow">Follow</string>
     <string name="unfollow">Unfollow</string>
+    <string name="edit_profile">Edit Profile</string>
 
 </resources>

@@ -27,25 +27,29 @@
 
             <TextView
                 android:id="@+id/name"
-                android:layout_width="wrap_content"
+                android:layout_width="0sp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:text="Name"
                 android:textSize="18dp"
                 android:textStyle="bold"
+                android:maxLines="1"
                 app:layout_constraintBottom_toTopOf="@+id/time"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/circleImageView"
                 app:layout_constraintTop_toTopOf="@+id/circleImageView"
                 app:layout_constraintVertical_chainStyle="packed" />
 
             <TextView
                 android:id="@+id/time"
-                android:layout_width="wrap_content"
+                android:layout_width="0sp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:text="Time"
                 android:textSize="16dp"
+                android:maxLines="1"
                 app:layout_constraintBottom_toBottomOf="@+id/circleImageView"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/circleImageView"
                 app:layout_constraintTop_toBottomOf="@+id/name" />
 

@@ -39,9 +39,6 @@ class MyPostsFragment : Fragment() {
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
 
     companion object {
     }
